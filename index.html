@@ -13,18 +13,20 @@ sitemap: false
 {% for post in paginator.posts %}
   {% unless post.draft %}
     <section class="index">
+      <a href="{{ site.github.url | replace: 'http://', '//' }}{{ post.url }}" rel="prefetch">
         {% if post.author.image %}<img src="{{ site.github.url | replace: 'http://', '//' }}/images/{{ post.author.image }}" class="avatar">{% endif %}
         {% if post.author.imageURL %}<img src="{{ post.author.imageURL }}" class="avatar">{% endif %}
 
-        <div>
-            <h2 class="title"><a href="{{ site.github.url | replace: 'http://', '//' }}{{ post.url }}" rel="prefetch">{{ post.title }}</a></h2>
+        <div>       
+            <h2 class="title">{{ post.title }}</h2>
             <div class="meta">
                 Written By <address>{{ post.author.name }}</address> &mdash;
                 <time pubdate datetime="{{ post.date | date: "%Y-%d-%B" }}" title="{{ post.date | date: "%B %d, %Y" }}">{{ post.date | date: "%B %d, %Y" }}</time>
             </div>
-            <div class="post_content">{{ post.excerpt }}</div>
-            <p class="readmore"><a href="{{ site.github.url | replace: 'http://', '//' }}{{ post.url }}" rel="prefetch">Read more...</a></p>
+            <div class="post_content">{{ post.excerpt | strip_html }}</div>
+           <!-- <p class="readmore"><a href="{{ site.github.url | replace: 'http://', '//' }}{{ post.url }}" rel="prefetch">Read more</a></p>-->         
         </div>
+      </a>
     </section>
     {% endunless %}
     {% endfor %}

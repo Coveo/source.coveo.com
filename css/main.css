@@ -295,7 +295,7 @@ hr {
     }
 
     pre, blockquote {
-        border: 1px solid #999;
+        border: 1px solid #1CEBCF;
         page-break-inside: avoid
     }
 
@@ -518,7 +518,8 @@ abbr.initialism {
 blockquote {
     padding: 10px 20px;
     margin: 0 0 20px;
-    border-left: 5px solid #eeeeee
+    border-left: 5px solid #1CEBCF;
+    font-style: italic;
 }
 
 blockquote p {
@@ -2030,7 +2031,7 @@ body {
     border: 0;
     /*padding: 80px 0 0;*/
     font-family: canada-type-gibson, sans-serif;
-    color: #373737;
+    color: #282829;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizelegibility;
     font-size: 17px;
@@ -2203,40 +2204,50 @@ h2 a {
 
 .container.posts .index {
     flex: 1 1 calc(50% - 32px);
+    border-radius: 32px;
+    box-shadow: 0 2px 8px rgba(229,232,232,.75);
 }
+
+
+.container.posts .index:hover{
+    background-color: #F7F7F9;
+    border-radius: 64px 8px;
+    box-shadow: none;
+ }
+ 
 
 .index,
 .container .single {
-    margin: 0 auto 30px;
-    padding: 50px;
-
+    margin: 0 auto;
     max-width: 850px;
-
     background:#fff;
-    border-radius: 100px 8px;
-    filter: drop-shadow(0px 2px 8px rgba(229, 232, 232, 0.75));
-
-    transition:0.2s ease all; 
+    transition:0.4s ease all; 
 }
 
 .container .single {
     filter:none;
     border-radius: none;
     background: none;
+    padding: 50px;
 }
 
+.container .single header {
+    margin-bottom: 32px;
+}
+.pscontainer .single .meta {
+    text-align: center;
+}
 .index .readmore {
     margin-bottom: 0;
 }
 
-.index > div {
-    display: table-cell
-}
 
 .index .title {
-    font-size: 32px;
+    font-size: 24px;
     line-height: 1.2;
-    font-weight:400;
+    font-weight:500;
+    margin-bottom: 8px;
+    color: #282829;
 }
 
 .index .post_content{
@@ -2249,13 +2260,13 @@ h2 a {
     font-size: 18px;
     line-height: normal;
 }
-.index .post_content p {
-    margin: 0;
+.index > a {
+    display: flex;
+    padding: 50px;
 }
 
-.index .post_content h1,
-.index .post_content h2 {
-    display: none;
+.index .post_content {
+    color: #282829;
 }
 
 .index .avatar {
@@ -2383,9 +2394,8 @@ h2 a {
 }
 
 .btn {
-    color: #fff;
+    color: #1372ec;
     font-weight: bold;
-    background-color: #54b89d;
     font-size: 1em;
     padding: 0.6em 1.2em;
     display: inline-block;
@@ -2396,44 +2406,19 @@ h2 a {
     font-style: normal;
     font-weight: 400;
     cursor: pointer;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     vertical-align: bottom;
     text-rendering: optimizeLegibility;
     border-radius: 2px;
     vertical-align: middle;
     font-family: canada-type-gibson, sans-serif;
     border-radius: 2px;
-    background: #4dab7d;
-    border: 2px solid #4dab7d;
-    text-transform: uppercase;
-    white-space: nowrap
-}
-
-.btn:hover {
-    background: #3d8863;
-    border-color: #3d8863;
-    color: #fff
 }
 
 .btn:active {
     box-shadow: none
 }
 
-.btn-outline {
-    background: none;
-    border-radius: 4px;
-    font-size: 0.8em;
-    border: 2px solid #333357;
-    border-radius: 3px;
-    color: #333357;
-    transition: 0.2s ease all;
-}
 
-.btn-outline:hover {
-    border: 2px solid #215CD3;
-    color: #215CD3;
-    background: none
-}
 
 .site-nav {
     background: #fff;
@@ -2534,6 +2519,8 @@ article .social > div {
 .container .single .title{
     color:#270054;
     margin: 0 0 10px 0;
+    text-align: center;
+    font-weight: 500;
 }
 .container.single .meta{
     margin-bottom: 50px;
@@ -2604,7 +2591,7 @@ article address .follow {
 article p {
     font-size: 1em;
     line-height: 1.5;
-    color: #373737;
+    color: #282829;
     font-weight: 400;
     margin: 0 0 1.5em
 }
@@ -2647,7 +2634,7 @@ article h3 {
 article h4 {
     font-size: 1.1em;
     font-weight: bold;
-    color: #373737;
+    color: #282829;
 }
 */
 article hr {
@@ -2656,7 +2643,6 @@ article hr {
 
 article .meta {
     margin-bottom: 30px;
-
     color: #282829;
     font-size: 14px;
 }
@@ -2668,7 +2654,12 @@ article .meta time, article .meta address {
 
 article .meta a {
     border: 0;
-    color: #848484
+    color: #282829;
+    text-decoration: underline;
+}
+
+article .meta a:hover {
+    text-decoration: none;
 }
 
 article img {
@@ -3378,3 +3369,4 @@ section .post_content ol>li:before{
     transform: translateY(-2px);
     margin-right: 5px;
 }
+
