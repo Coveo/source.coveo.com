@@ -27,11 +27,15 @@ it could be every 24 hours. We will then measure for what percentage of the day 
 and mark any day with less than 95% as falling outside of the objective. Here are some of the reasons why
 we provide service-level objectives to our internal users:
 
-<u>Expectations management</u>: we want our users to know what to expect from each data source so they can evaluate if it fits their use case. If they need something that refreshes more frequently or has higher guarantees, they may want to look for a different data source or work with us so we can bring the source in line with their needs.
+<u>Expectations management</u>: we want our users to know what to expect from each data source so they can evaluate
+if it fits their use case. If they need something that refreshes more frequently or has higher guarantees,
+they may want to look for a different data source or work with us so we can bring the source in line with their needs.
 
-<u>Performance monitoring</u>: defining SLO’s makes it possible for us to identify performance or reliability issues from a customer point of view. We are then able to adjust pipelines to run on less compute (thus slower) for cost optimizations as long as it doesn’t impact the SLO’s.
+<u>Performance monitoring</u>: defining SLO's makes it possible for us to identify performance or reliability issues
+from a customer point of view. We are then able to adjust pipelines to run on less compute (thus slower) for cost 
+optimizations as long as it doesn't impact the SLO's.
 
-<u>Resource Allocation</u>: by having agreed upon SLO’s, we can prioritize efforts on the projects that don’t meet them and justify efforts to improve reliability.
+<u>Resource Allocation</u>: by having agreed upon SLO's, we can prioritize efforts on the projects that don't meet them and justify efforts to improve reliability.
 
 # Operational context
 To update data in a cost-effective manner, our data platform processes data incrementally in batch intervals that are tracked. The scheduler for the batches uses a table that contains the start of an interval, its end, and the time at which it was completed. For example it could look like this:
@@ -45,19 +49,19 @@ To update data in a cost-effective manner, our data platform processes data incr
 
 
 
-In this example, we’re running intervals of 5 minutes that usually complete 5 minutes after the last run completed. Let’s say we set our service-level indicator threshold at 15 minutes. For the interval 3:15 to 3:20, it completed 10 minutes after the previous run, which is within the SLI. However, the interval 3:20 to 3:25 finished 35 minutes after 3:30 completion, which doesn’t meet the SLI. If more than 5% of the minutes in the day are not acceptable according to the SLI, then the SLO is not met.
+In this example, we're running intervals of 5 minutes that usually complete 5 minutes after the last run completed. Let's say we set our service-level indicator threshold at 15 minutes. For the interval 3:15 to 3:20, it completed 10 minutes after the previous run, which is within the SLI. However, the interval 3:20 to 3:25 finished 35 minutes after 3:30 completion, which doesn't meet the SLI. If more than 5% of the minutes in the day are not acceptable according to the SLI, then the SLO is not met.
 
-We’re interested in measuring how many times the SLI is not met by identifying the number of late completions as in the example as well as measuring what percentage of minutes of the day the data was within the threshold.
+We're interested in measuring how many times the SLI is not met by identifying the number of late completions as in the example as well as measuring what percentage of minutes of the day the data was within the threshold.
 
-Note that the SLI isn’t the same as the run frequency, and that’s on purpose as we want the runs to run more frequently to allow for recovery when transient failures occur.
+Note that the SLI isn't the same as the run frequency, and that's on purpose as we want the runs to run more frequently to allow for recovery when transient failures occur.
 
 # Some SQL
 To measure the SLO, we will use SQL queries against a table recording the completion of intervals like the one in the example. We will be able to compute at each minute of the day what the freshness of the data was without running queries at that minute to make an observation. The SQL code provided is valid in Snowflake, but should run in other databases with minimal changes.
 
 ## Measuring how many runs are late
-We’ll calculate how many pipeline completions were late by taking advantage of the lag function to calculate the time between completions.
+We'll calculate how many pipeline completions were late by taking advantage of the lag function to calculate the time between completions.
 
-Let’s first create some synthetic rows, so we can run the code without any tables or views.
+Let's first create some synthetic rows, so we can run the code without any tables or views.
 
 ```sql
 SELECT to_timestamp_tz('2024-03-01 01:00:00 +0000') AS interval_start, 
@@ -287,7 +291,7 @@ GROUP BY all;
 With this change, we have the number of completions with a time between
 completions more than the one defined in the SLI. This will let us know
 how many times a day we had issues, but not how long it took to recover.
-That’s where the next part measuring the percentage of minutes within
+That's where the next part measuring the percentage of minutes within
 the SLI comes in.
 
 ## Measuring the percentage of minutes within the SLI
@@ -563,7 +567,7 @@ objective over time by day for our three main pipelines, and just
 below the same graph is broken down by Snowflake account.
 On the right, we have the number of late runs per day which
 can help us diagnose problems and focus our efforts on error
-recovery or avoidance (making sure runs don’t fail vs. starting
+recovery or avoidance (making sure runs don't fail vs. starting
 new runs when they do). The bottom part shows a bigger picture
 counting the number of days when less than 95% of minutes
 are within the SLI.
@@ -579,7 +583,7 @@ as well as helping us prioritize our efforts to make sure we meet these
 objectives. I then showed you how to leverage a table with interval
 completions and SQL functionality such as lag, generator, and asof join
 to measure our SLOs. In our case, we built the SLO dashboard at a time
-when we’re satisfied with the stability of our pipelines, but I encourage
+when we're satisfied with the stability of our pipelines, but I encourage
 you to set it up first to motivate the effort and resources invested. We
 will definitely be doing it with our future pipelines.
 
