@@ -35,10 +35,13 @@ they may want to look for a different data source or work with us so we can brin
 from a customer point of view. We are then able to adjust pipelines to run on less compute (thus slower) for cost 
 optimizations as long as it doesn't impact the SLO's.
 
-<u>Resource Allocation</u>: by having agreed upon SLO's, we can prioritize efforts on the projects that don't meet them and justify efforts to improve reliability.
+<u>Resource Allocation</u>: by having agreed upon SLO's, we can prioritize efforts on the projects that don't meet them
+and justify efforts to improve reliability.
 
 # Operational context
-To update data in a cost-effective manner, our data platform processes data incrementally in batch intervals that are tracked. The scheduler for the batches uses a table that contains the start of an interval, its end, and the time at which it was completed. For example it could look like this:
+To update data in a cost-effective manner, our data platform processes data incrementally in batch intervals that are
+tracked. The scheduler for the batches uses a table that contains the start of an interval, its end, and the time at
+which it was completed. For example it could look like this:
 
 | Start | End  | Completion |
 |-------|------|------------|
@@ -49,17 +52,27 @@ To update data in a cost-effective manner, our data platform processes data incr
 
 
 
-In this example, we're running intervals of 5 minutes that usually complete 5 minutes after the last run completed. Let's say we set our service-level indicator threshold at 15 minutes. For the interval 3:15 to 3:20, it completed 10 minutes after the previous run, which is within the SLI. However, the interval 3:20 to 3:25 finished 35 minutes after 3:30 completion, which doesn't meet the SLI. If more than 5% of the minutes in the day are not acceptable according to the SLI, then the SLO is not met.
+In this example, we're running intervals of 5 minutes that usually complete 5 minutes after the last run completed.
+Let's say we set our service-level indicator threshold at 15 minutes. For the interval 3:15 to 3:20, it completed 10
+minutes after the previous run, which is within the SLI. However, the interval 3:20 to 3:25 finished 35 minutes after
+3:30 completion, which doesn't meet the SLI. If more than 5% of the minutes in the day are not acceptable according
+to the SLI, then the SLO is not met.
 
-We're interested in measuring how many times the SLI is not met by identifying the number of late completions as in the example as well as measuring what percentage of minutes of the day the data was within the threshold.
+We're interested in measuring how many times the SLI is not met by identifying the number of late completions as
+in the example as well as measuring what percentage of minutes of the day the data was within the threshold.
 
-Note that the SLI isn't the same as the run frequency, and that's on purpose as we want the runs to run more frequently to allow for recovery when transient failures occur.
+Note that the SLI isn't the same as the run frequency, and that's on purpose as we want the runs to run more frequently
+to allow for recovery when transient failures occur.
 
 # Some SQL
-To measure the SLO, we will use SQL queries against a table recording the completion of intervals like the one in the example. We will be able to compute at each minute of the day what the freshness of the data was without running queries at that minute to make an observation. The SQL code provided is valid in Snowflake, but should run in other databases with minimal changes.
+To measure the SLO, we will use SQL queries against a table recording the completion of intervals like the one
+in the example. We will be able to compute at each minute of the day what the freshness of the data was without
+running queries at that minute to make an observation. The SQL code provided is valid in Snowflake, but should
+run in other databases with minimal changes.
 
 ## Measuring how many runs are late
-We'll calculate how many pipeline completions were late by taking advantage of the lag function to calculate the time between completions.
+We'll calculate how many pipeline completions were late by taking advantage of the lag function to calculate
+the time between completions.
 
 Let's first create some synthetic rows, so we can run the code without any tables or views.
 
@@ -302,9 +315,11 @@ it is work we'd rather not do, so we looked for a more efficient
 way to ensure our data pipelines meet our SLO's for freshness.
 Instead, we leverage the completion data we already have
 from our scheduler, and some less commonly used SQL features
-to simulate these observations. We'll first use the [generator
-table function](https://docs.snowflake.com/en/sql-reference/functions/generator) to create a row for each minute and then use
-an [asof join](https://docs.snowflake.com/en/sql-reference/constructs/asof-join) (recently added to Snowflake) to find which completion
+to simulate these observations. We'll first use the 
+[generator table function](https://docs.snowflake.com/en/sql-reference/functions/generator)
+to create a row for each minute and then use an 
+[asof join](https://docs.snowflake.com/en/sql-reference/constructs/asof-join) (recently added to Snowflake)
+to find which completion
 was the latest for each minute.
 
 ### Generating rows for each minute
