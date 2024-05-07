@@ -7,6 +7,7 @@ tags: [Data Pipeline, SLO]
 author:
   name: Alexis Chicoine
   bio: Data Developer
+  image: achicoine.jpg
 ---
 
 # Introduction
