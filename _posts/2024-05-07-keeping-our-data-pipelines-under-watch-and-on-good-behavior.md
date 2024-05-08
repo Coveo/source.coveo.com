@@ -7,7 +7,7 @@ tags: [Data Pipeline, SLO]
 author:
   name: Alexis Chicoine
   bio: Data Developer
-  image: achicoine.jpg
+  image: achicoine.jpeg
 ---
 
 # Introduction
@@ -137,6 +137,7 @@ SELECT
 FROM calculated_minutes_between_completions
 GROUP BY all;
 ```
+
 | COMPLETION_DAY | NB_EVENTS |
 |----------------|-----------|
 | 2024-03-01     | 1         |
@@ -192,6 +193,7 @@ SELECT
     to_timestamp_tz('2024-03-01 05:00:00 +0000') AS interval_end,
     to_timestamp_tz('2024-03-01 09:10:00 +0000') AS completion;
 ```
+
 | PIPELINE_NAME | INTERVAL_START            | INTERVAL_END              | COMPLETION               |
 |---------------|---------------------------|---------------------------|--------------------------|
 | A             | 2024-03-01 01:00:00 +0000 | 2024-03-01 01:05:00 +0000 | 2024-03-01 01:10:00 +0000 |
@@ -296,6 +298,7 @@ FROM calculated_minutes_between_completions
 INNER JOIN sli_thresholds USING (pipeline_name)
 GROUP BY all;
 ```
+
 | PIPELINE_NAME | COMPLETION_DAY | NB_EVENTS |
 |---------------|----------------|-----------|
 | A             | 2024-03-01     | 1         |
@@ -348,6 +351,7 @@ Let's first look at what the `generator` and `seq4()` functions are doing.
 SELECT seq4()
 FROM TABLE(GENERATOR(ROWCOUNT => 5));
 ```
+
 | seq4() |
 |--------|
 | 0      |
