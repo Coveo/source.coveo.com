@@ -50,8 +50,6 @@ which it was completed. For example it could look like this:
 | 3:15  | 3:20 | 3:30       |
 | 3:20  | 3:25 | 4:05       |
 
-
-
 In this example, we're running intervals of 5 minutes that usually complete 5 minutes after the last run completed.
 Let's say we set our service-level indicator threshold at 15 minutes. For the interval 3:15 to 3:20, it completed 10
 minutes after the previous run, which is within the SLI. However, the interval 3:20 to 3:25 finished 35 minutes after
