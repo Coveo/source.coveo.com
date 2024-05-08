@@ -481,9 +481,7 @@ how many minutes ago the last refresh happened. We can observe
 the freshness delay go up at a rate of 1 minute per minute and
 then crash down to 0 once a run completes.
 
-<figure>
-  <img src="{{ site.baseurl }}/images/2024-05-07-keeping-our-data-pipelines-under-watch-and-on-good-behavior/snowsight_chart_1.png">
-</figure>
+![snowsight_chart](/images/2024-05-07-keeping-our-data-pipelines-under-watch-and-on-good-behavior/snowsight_chart_1.png)
 
 Now that we have a freshness value for each minute, we can compare it
 to our objective and calculate the percentage of minutes that meets the
@@ -591,9 +589,7 @@ new runs when they do). The bottom part shows a bigger picture
 counting the number of days when less than 95% of minutes
 are within the SLI.
 
-<figure>
-  <img src="{{ site.baseurl }}/images/2024-05-07-keeping-our-data-pipelines-under-watch-and-on-good-behavior/final_dashboard.png">
-</figure>
+![final_dashboard](/images/2024-05-07-keeping-our-data-pipelines-under-watch-and-on-good-behavior/final_dashboard.png)
 
 # Conclusion
 In this article, we discussed the importance of providing SLO's so
