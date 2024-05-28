@@ -73,7 +73,7 @@ var TechDocSearchPage = 'https://connect.coveo.com/s/global-search/%40uri';
 
 $(function(){
 	Coveo.SearchEndpoint.endpoints["default"] = new Coveo.SearchEndpoint({
-		restUri: 'https://platform.cloud.coveo.com/rest/search',
+		restUri: 'https://coveosearch.org.coveo.com/rest/search',
 		accessToken: searchToken
 		});
 	Coveo.$("#searchBox").on("afterInitialization", function(){
