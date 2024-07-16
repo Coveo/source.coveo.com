@@ -53,9 +53,6 @@ The first part of the solution was to move the raw data closer to our infrastruc
 |:--:|
 | _Same data but in AWS Cloudwatch_ |
 
-
-
-
 I mentioned above that Cloudwatch recently added a new SLO feature, through Application Signals. This new service automatically collects your application metrics and allows you to define SLIs and SLOs on top of that. This is not our use case but, thankfully, it also supports SLOs based on any custom metric! The move to Cloudwatch thus felt quite timely. However, this feature is so fresh from the oven that it is not particularly versatile. For example, it does not track burn rate (which is a very valuable target for alerting, a strategy that Google is quite [keen](https://sre.google/workbook/alerting-on-slos/) on), nor can we easily set multiple alerting thresholds or windows. To achieve the latter, we would have to create multiple SLOs on top of the same metric (our SLI), each with its own single window and alert. This is impractical, without even going into the kind of virtuoso implementations involving proper [multi-window, multi-burn-rate](https://sre.google/workbook/alerting-on-slos/#6-multiwindow-multi-burn-rate-alerts) alerting.
 
 A reasonable requirement is that we can enjoy alerting features on par with our SLOs in Honeycomb: at least one burn rate alert (*i.e.* when the error budget is being drained too fast) and at least one budget exhaustion alert (*i.e.* the remaining error budget is too low). What can we do then, short of calculating the SLOs ourselves?
