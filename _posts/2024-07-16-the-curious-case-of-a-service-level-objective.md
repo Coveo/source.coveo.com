@@ -11,7 +11,7 @@ author:
   image: jfsmith.jpeg
 ---
 
-# The context
+## The context
 
 The site reliability engineering (SRE) team at Coveo is currently hard at work implementing tools and processes with a lofty goal in mind: moving our R&D culture toward adopting service-level objectives (SLO). Writing blogs about SLOs or announcing products making use of them is pretty common nowadays, and understandably so. Yet I’m finding that most of the discourse around this topic is limited to the same kind of examples and use cases. In this blog post, I will tell the convoluted story of a definitely not standard SLO.
 
@@ -23,9 +23,9 @@ Up until now at Coveo our implementation of SLOs has leveraged Honeycomb, which 
 
 It turns out however that the SRE team has a very different kind of SLO on its hands, the implementation of which has been the opposite of straightforward. Here is why.
 
-# The problem
+## The problem
 
-Since around the year -2 BC (Before Covid), I have been maintaining a metric that tracks how long it takes for a simple document to go through our indexing pipeline after being either pushed by API or pulled by what we call a crawler. The idea behind this is to observe the health of the pipeline at a higher level. When this simple document takes too long to index and become available for querying, chances are that this is indicative of a problem for everyone else too. In theory, this metric is nothing less than perfect for a SLO. In practice, however, reality begged to differ.
+Since around the year 2 BC (Before Covid), I have been maintaining a metric that tracks how long it takes for a simple document to go through our indexing pipeline after being either pushed by API or pulled by what we call a crawler. The idea behind this is to observe the health of the pipeline at a higher level. When this simple document takes too long to index and become available for querying, chances are that this is indicative of a problem for everyone else too. In theory, this metric is nothing less than perfect for a SLO. In practice, however, reality begged to differ.
 
 This metric is the result of an automated operation (using an AWS lambda function) that evaluates given states, computes a result and sends it to an external metric backend, [HostedGraphite](https://www.hostedgraphite.com/). This service does its job very well, but only that – hosting the data. There are no SLO features on top of it that we can take advantage of.
 
@@ -41,7 +41,7 @@ The vast majority of platforms range between exclusively documenting request-dri
 
 While I do understand the gravitational pull that application availability and latency SLOs may have, a cynical side of me fears that we are witnessing a bit of a bandwagon effect going on here. Fair enough. Our requirement for a freshness SLO is clear and if we need to cook up our own recipe for it, then we shall do so.
 
-# The solution
+## The solution
 
 The first part of the solution was to move the raw data closer to our infrastructure – to AWS Cloudwatch. The automated job, as well as many other related ones, already run on AWS lambda functions. It made sense to start from there.
 
@@ -79,11 +79,11 @@ The benefit of using Cloudwatch as a backend for our custom SLO – let’s not 
 
 And so here we are! A fully functional freshness SLO, built up from several individual smaller pieces.
 
-# The upshot
+## The upshot
 
 For sure, our end game is going through a lot of hoops, but let’s revisit our requirements:
 
-- Ability to push gauge- and/or counter-style metrics to a backend
+- Ability to push custom metrics to a backend
 - Ability to compute SLI compliance, error budget and burn rate on which we can alert
 - Ability to represent SLOs that are not of availability or latency types
 - Ability to store this SLO data in a reliable backend
