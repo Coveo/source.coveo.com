@@ -79,7 +79,7 @@ We did not! As I could add a custom backend to slo-generator, so could I add a c
 |:--:|
 | _Indexing a Push document should take less than 7 minutes, 99% of the time within 24 hours. 6 bad events affected our error budget somewhat, but thankfully our compliance is still above 99%! (This data is from our development environment only)_ |
 
-The benefit of using Cloudwatch as a backend for our custom SLO – let’s not be shy about it – is that we can potentially re-use this data in many other ways, not just within AWS Cloudwatch. This is why I was able add one last column to the edifice: a custom Prometheus collector/exporter that can pull our SLO data (as it should be) so that in the end, we get the same result as if we were using Pushgateway, without the hassle of maintaining it. This way, we can enjoy Grafana’s powerful visualization tools, though of course the actual graphs shown below remains quite simple for the time being:
+The benefit of using Cloudwatch as a backend for our custom SLO – let’s not be shy about it – is that we can potentially re-use this data in many other ways, not just within AWS Cloudwatch. This is why I was able add one last column to the edifice: a custom Prometheus collector/exporter that can pull our SLO data (as it should be) so that in the end, we get the same result as if we were using Pushgateway, without the hassle of maintaining it. This way, we can enjoy Grafana’s powerful visualization tools, though of course the actual graphs shown below remain quite simple for the time being:
 
 | ![Push indexing delay in AWS CLoudwatch](/images/2024-07-16-the-curious-case-of-a-service-level-objective/05_grafana.png) |
 |:--:|
