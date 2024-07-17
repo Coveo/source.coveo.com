@@ -13,7 +13,7 @@ author:
 
 ## The context
 
-The site reliability engineering (SRE) team at Coveo is currently hard at work implementing tools and processes with a lofty goal in mind: moving our R&D culture toward adopting service-level objectives (SLO). Writing blogs about SLOs or announcing products making use of them is pretty common nowadays, and understandably so. Yet I’m finding that most of the discourse around this topic is limited to the same kind of examples and use cases. In this blog post, I will tell the convoluted story of a definitely not standard SLO.
+The site reliability engineering (SRE) team at Coveo is currently hard at work implementing tools and processes with a lofty goal in mind: moving our R&D culture toward adopting service-level objectives (SLO). Writing blogs about SLOs or announcing products making use of them is pretty common nowadays, and understandably so. Yet I’m finding that most of the discourse around this topic is limited to the same kind of examples and use cases. In this blog post, I will tell the convoluted story of a definitely non-standard SLO.
 
 <!-- more -->
 
