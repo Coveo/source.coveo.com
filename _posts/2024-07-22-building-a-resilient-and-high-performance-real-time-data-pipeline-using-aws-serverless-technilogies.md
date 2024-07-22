@@ -7,7 +7,7 @@ tags: [Streaming Data, AWS, Coveo, Data Platform]
 
 author:
   name: Lucy Lu, Marie Payne
-  bio: Senior Software Developer, Data Platform
+  bio: Senior Software Developers on the Data Platform
   image: llu_mpayne.png
 ---
 
