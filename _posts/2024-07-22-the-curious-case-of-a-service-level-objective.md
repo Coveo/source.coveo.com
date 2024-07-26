@@ -100,6 +100,11 @@ Using an efficient but generic tool, Google’s slo-generator, alongside AWS Clo
 
 One of my favorite benefits of using Google’s slo-generator is how SLOs are defined through a YAML spec. I did not have the space to dwell on that here, but this is one of the areas I really want to exploit further down the line. As we already support Honeycomb SLOs as code (in this case, Terraform), I am hoping that eventually we can make all our SLOs uniform through a shared specification language, such as [OpenSLO](https://github.com/openslo/openslo). I firmly believe this will be of great help not only to drive, but also to scale up our adoption of SLOs. So until then, [may your queries flow and the pagers stay silent](https://sre.google/workbook/conclusion/)!
 
+| ![SLO Backend architecture](/images/2024-07-22-the-curious-case-of-a-service-level-objective/06_graph.jpg) |
+|:--:|
+| _Architecture diagram of the chosen solution_ |
+
+
 *If you're passionate about software engineering, and you would like to work with other developers who are passionate about their work, make sure to check out our [careers](https://www.coveo.com/en/company/careers/open-positions?utm_source=tech-blog&utm_medium=blog-post&utm_campaign=organic#t=career-search&numberOfResults=9) page and apply to join the team!*
 
 
