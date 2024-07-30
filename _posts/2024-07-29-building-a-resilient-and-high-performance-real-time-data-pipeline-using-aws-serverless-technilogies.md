@@ -11,7 +11,7 @@ author:
   image: llu_mpayne.png
 ---
 
-At Coveo, we track how end-users interact with search interfaces by capturing client-side and server-side signals from our customers' implementations. Initially, we only collected client-side events through [Usage Analytics Write API](https://docs.coveo.com/en/1430/build-a-search-ui/use-the-usage-analytics-write-api) which implementers can use to log Click, View, Search, and Custom Events. These events are used by Coveo Machine Learning models to provide relevant and personalized experiences for end-users. These events are also used by implementers to build reports and dashboards where they can gain insights into user behaviors, and make informed decisions to optimize Coveo solutions. The diagram below shows the real-time data pipeline that receives and processed client-side events.
+At Coveo, we track how end-users interact with search interfaces by capturing client-side and server-side signals from our customers' implementations. Initially, we only collected client-side events through [Usage Analytics Write API](https://docs.coveo.com/en/1430/build-a-search-ui/use-the-usage-analytics-write-api) which implementers can use to log Click, View, Search, and Custom Events. These events are used by Coveo Machine Learning models to provide relevant and personalized experiences for end-users. These events are also used by implementers to build reports and dashboards where they can gain insights into user behaviors, and make informed decisions to optimize Coveo solutions. The diagram below shows the real-time data pipeline that receives and processes client-side events.
 
 ![Original real-time data pipeline](/images/2024-07-29-building-a-resilient-and-high-performance-real-time-data-pipeline-part-1/old_pipeline.jpg)
 *Original real-time data pipeline*
@@ -45,7 +45,7 @@ The diagram below shows the newly built real-time data pipeline architecture at 
 
 The Enrichment Lambda validates each event against predefined data schemas, and adds validation results to the original event. We use JSON Schema to specify constraints such as allowed values and ranges for all events ingested through the event service. Common fields (e.g. URL, userAgent, etc.) that exist in  all events share the same constraints. Event type specific data fields have their own rules. This makes sure that events in the pipeline adhere to the same standard and prevents data invalidity, incompleteness, and inconsistencies.
 
-Enriched events will also be delivered to the Snowflake data lake, the single source of truth database where internal users and batch processing jobs (e.g. e-commerce metrics calculation and ML model building) access. This further enhances data consistency across different use cases.
+Enriched events will also be delivered to the Snowflake data lake, the single source of truth database where internal users access and batch processing jobs (e.g. e-commerce metrics calculation and ML model building) connect. This further enhances data consistency across different use cases.
 
 ## Extensibility
 
