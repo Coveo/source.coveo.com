@@ -45,7 +45,7 @@ The diagram below shows the newly built real-time data pipeline architecture at 
 
 The Enrichment Lambda validates each event against predefined data schemas, and adds validation results to the original event. We use JSON Schema to specify constraints such as allowed values and ranges for all events ingested through the event service. Common fields (e.g. URL, userAgent, etc.) that exist in  all events share the same constraints. Event type specific data fields have their own rules. This makes sure that events in the pipeline adhere to the same standard and prevents data invalidity, incompleteness, and inconsistencies.
 
-Enriched events will also be delivered to the Snowflake data lake, the single source of truth database where internal users access and batch processing jobs (e.g. e-commerce metrics calculation and ML model building) connect. This further enhances data consistency across different use cases.
+Enriched events will also be delivered to the Snowflake data lake, the single source of truth database that both internal users and batch processing jobs (e.g. e-commerce metrics calculation and ML model building) access. This further enhances data consistency across different use cases.
 
 ## Extensibility
 
