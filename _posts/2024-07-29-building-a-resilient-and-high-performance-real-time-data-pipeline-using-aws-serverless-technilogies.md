@@ -13,7 +13,7 @@ author:
 
 At Coveo, we track how end-users interact with search interfaces by capturing client-side and server-side signals from our customers' implementations. Initially, we only collected client-side events through [Usage Analytics Write API](https://docs.coveo.com/en/1430/build-a-search-ui/use-the-usage-analytics-write-api) which implementers can use to log Click, View, Search, and Custom Events. These events are used by Coveo Machine Learning models to provide relevant and personalized experiences for end-users. These events are also used by implementers to build reports and dashboards where they can gain insights into user behaviors, and make informed decisions to optimize Coveo solutions. The diagram below shows the real-time data pipeline that receives and processed client-side events.
 
-![Original real-time data pipeline](/images/2024-07-22-building-a-resilient-and-high-performance-real-time-data-pipeline-part-1/old_pipeline.jpg)
+![Original real-time data pipeline](/images/2024-07-29-building-a-resilient-and-high-performance-real-time-data-pipeline-part-1/old_pipeline.jpg)
 *Original real-time data pipeline*
 
 <!-- more -->
@@ -21,7 +21,7 @@ At Coveo, we track how end-users interact with search interfaces by capturing cl
 Over the last few years, there has been a growing demand for real-time data analytics and applications. In addition to tracking events submitted explicitly through Usage Analytics Write API (client-side events), we also wanted to capture events from internal services (server-side events). However, it is challenging to expand the above architecture to include server-side events for the following reasons:
 
 1. The original design of Write Service did not consider the additional data source and integrations with new real-time consumers. Expanding its existing capabilities requires a significant amount of redesign efforts.
-2. Adding a data source or a consumer involves specific validation and transformation logic for incoming events. That logic can differ depending on the data source or consumer. As the number of data sources or consumers grows, the complexity of Write Service increases, making it harder to manage and maintain which ultimately leads to increased chances of errors and failures.
+2. Adding a data source or a consumer involves specific validation and transformation logic for incoming events. That logic can differ depending on the data source or consumer. As the number of data sources or consumers grows, the complexity of the Write Service increases, making it harder to manage and maintain which ultimately leads to increased chances of errors and failures.
 3. The additional transformation logic will potentially introduce more processing time, leading to performance degradation of the Write API.
 
 This motivated us to build a new real-time streaming pipeline that can be easily extended to adapt to new data sources from client side or server side, as well as accommodate new real-time data consumers. Beyond extensibility, there are other factors that we prioritized when designing the new real-time data pipeline, particularly:
@@ -36,7 +36,7 @@ With these identified requirements, we have built a new real-time streaming data
 
 The diagram below shows the newly built real-time data pipeline architecture at Coveo. The event service, a Kubernetes service running on EKS, acts as the entrypoint for all analytics events in our platform. It is responsible for forwarding events to a Kinesis Stream (Raw Event Stream) as quickly as possible without performing any data transformations. Raw events will then be processed by a lambda function (Enrichment Lambda) that augments information, validates against predefined schemas, and masks sensitive data in the raw events. These enriched events are forwarded to another Kinesis Stream (Enriched Event Stream). The enriched events have two consumers: a Kinesis Data Firehose which loads these enriched events into S3, and a lambda function that is able to route events to multiple streams used by different applications. After events are loaded into S3, we use Snowpipe, a service provided by Snowflake, to ingest data from S3 to our centralized data lake in Snowflake.
 
-![New real-time data pipeline](/images/2024-07-22-building-a-resilient-and-high-performance-real-time-data-pipeline-part-1/new_data_pipline.jpg)
+![New real-time data pipeline](/images/2024-07-29-building-a-resilient-and-high-performance-real-time-data-pipeline-part-1/new_data_pipline.jpg)
 *New real-time data pipeline*
 
 # How does this architecture benefit us?
