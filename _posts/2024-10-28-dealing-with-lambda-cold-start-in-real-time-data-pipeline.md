@@ -61,7 +61,7 @@ public class EventEnrichmentHandler
   public EventEnrichmentHandler() throws Exception {
 
      try {
-      // Creating AWS S3 clients
+      // Creating AWS S3 client
       long start = System.currentTimeMillis();
       S3Client s3Client = S3Client.builder().build();
       logger.info("Took {} ms to create s3Client", System.currentTimeMillis() - start);
